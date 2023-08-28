@@ -5,17 +5,25 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// Generate a random number between 1 and 10
-const randomNumber = Math.floor(Math.random() * 10) + 1;
+function guessGame() {
+  const randomNumber = Math.floor(Math.random() * 10) + 1;
 
-rl.question('Guess a number between 1 and 10: ', (userInput) => {
-  const userGuess = parseInt(userInput);
+  rl.question('Guess a number between 1 and 10 (or type "exit" to quit): ', (userInput) => {
+    if (userInput.toLowerCase() === 'exit') {
+      console.log('Thank you!');
+      rl.close();
+    } else {
+      const userGuess = parseInt(userInput);
 
-  if (userGuess === randomNumber) {
-    console.log('You have won!');
-  } else {
-    console.log(`You have lost! The random number generated is ${randomNumber}.`);
-  }
+      if (userGuess === randomNumber) {
+        console.log('Weldone! You guessed the correct number.');
+      } else {
+        console.log(`Sorry! You guessed wrong. The random number was ${randomNumber}.`);
+      }
 
-  rl.close();
-});
+      guessGame(); 
+    }
+  });
+}
+
+guessGame();
